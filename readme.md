@@ -1,15 +1,15 @@
 # TMM SCRAPER TO GET ALL THE INVOICES SENT TO THE SITE
 
----
 
 ## Specifications
 
----
+
+
 - ### The scraper must be written in Python 3.10.12, the libraries were managed with pip 23.2.1
   
 ## Scaffold
 
----
+
 
 ### 1. Be sure to use python 3.10.12 or major versions (with an appropriate pip version)
 ### 2. Install all the libraries in the requirements.txt file (if you use pip run `pip install -r requirements.txt`)
@@ -18,7 +18,7 @@
 
 ## Output
 
----
+
 
 ## The output of the scraper will be two different excel files:
 ### - currentYearAmount.xlsx: This file will contain the total amount of invoices which have been sent since the start of the last edition (first October of the previous year) until the current date.
