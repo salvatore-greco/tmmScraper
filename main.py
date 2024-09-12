@@ -138,5 +138,5 @@ def soldiRimanenti():
     print(f"Mancante: {totale}")
 
 if __name__ == '__main__':
-    #scraper()
+    scraper()
     soldiRimanenti()
