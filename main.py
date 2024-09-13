@@ -104,20 +104,6 @@ def soldiRimanenti():
 
     #mi serve calcolare la differenza fra il pfi e ciò che ho rendicontato
     #parse pfi
-
-    # pfi=[('Tasse',156),
-    #      ('Trasporti', 55.5),
-    #      ('Affitti e utenze',0),
-    #      ('Vitto', 200),
-    #      ('Viaggi', 0),
-    #      ('Materiale', 533),
-    #      ('Corsi',0),
-    #      ('Libri',0),
-    #      ('Eventi', 350),
-    #      ('Sport',50),
-    #      ('Strumenti elettronici',1553),
-    #      ('Altro', 100)]
-    # totalAmount = 3000
     try :
 
         totalAmount, pfi = parsePfi()
