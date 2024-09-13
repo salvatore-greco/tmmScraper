@@ -1,0 +1,17 @@
+{
+  "totalAmount": 1200,
+  "expenses":{
+    "Tasse": 100,
+    "Trasporti": 100,
+    "Affitti e utenze": 100,
+    "Vitto": 100,
+    "Viaggi": 100,
+    "Materiale": 100,
+    "Corsi": 100,
+    "Libri": 100,
+    "Eventi": 100,
+    "Sport": 100,
+    "Strumenti elettronici": 100,
+    "Altro": 100
+  }
+}
