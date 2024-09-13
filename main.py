@@ -1,4 +1,6 @@
 import os
+from unittest.mock import right
+
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -8,6 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from datetime import datetime
 from dotenv import load_dotenv
+
 load_dotenv()
 url = 'https://www.tuttomeritomio.it/login'
 username = os.getenv('TMM_USERNAME')
@@ -59,6 +62,81 @@ def scraper():
         df.to_excel('allAmount.xlsx')
     finally:
         driver.quit()
+        
+
+
+def soldiRimanenti():
+    """
+    Faccio questa funzione perchè mi ritrovo sempre soldi in avanzo quando devo rendicontare a settembre.
+    """
+    df = pd.read_excel("currentYearAmount.xlsx")
+    df = df.sort_values(by=["Tipo"]) #ho il file ordinato per tipo
+
+    #da qui in poi devo trovarmi i totali per tipo
+    importo = []
+    tipo = []
+    importoTot = []
+    tipoTot = []
+    importo = df['Importo']
+    tipo = df['Tipo']
+
+
+    currentType = tipo[0]
+    sommaParz = 0
+    for i in range (0, importo.size):
+        if currentType != tipo[i]:
+            tipoTot.append(currentType)
+            importoTot.append(sommaParz)
+            currentType = tipo[i]
+            sommaParz = 0
+        sommaParz += importo[i]
+    totalDf = pd.DataFrame(columns=['Tipo', 'Importo'])
+    totalDf['Tipo'] = tipoTot
+    totalDf['Importo'] = importoTot
+
+    #mi serve calcolare la differenza fra il pfi e ciò che ho rendicontato
+    pfi=[('Tasse',156),
+         ('Trasporti', 55.5),
+         ('Affitti e utenze',0),
+         ('Vitto', 200),
+         ('Viaggi', 0),
+         ('Materiale', 533),
+         ('Corsi',0),
+         ('Libri',0),
+         ('Eventi', 350),
+         ('Sport',50),
+         ('Strumenti elettronici',1553),
+         ('Altro', 100)]
+    totaleBorsa = 3000
+
+    #tolgo le categorie == 0
+    i = 0
+    while i<len(pfi):
+        if pfi[i][1] == 0:
+            pfi.pop(i)
+        else:
+            i+=1
+        #python è proprio stupido... devo fare sto schifo perchè il for è diverso da altri linguaggi
+
+    #creo il dataframe del piano spese
+    pfiDf = pd.DataFrame(pfi, columns=['Tipo', 'Importo'])
+    pfiDf = pfiDf.sort_values(by=['Tipo']).reset_index(drop=True)
+    #aggiungo le categorie che ancora non sono state rendicontate
+    res = pd.DataFrame(columns=['Tipo', 'Importo'])
+    res['Tipo'] = pd.concat([pfiDf['Tipo'], totalDf['Tipo']]).drop_duplicates(keep=False)
+    res['Importo'] = 0
+    totalDf = pd.concat([totalDf, res])
+    totalDf = totalDf.sort_values(by=['Tipo']).reset_index(drop=True)
+    #faccio la differenza per capire quanti soldi mancano da rendicontare
+    diff = pfiDf.copy()
+    diff['Importo'] = pfiDf['Importo'] - totalDf['Importo']
+    diff.to_excel("soldi_mancanti.xlsx")
+    #calcolo il totale
+    totale = diff['Importo'].sum()
+    if totale > (totaleBorsa*0.1):
+        print("Finisci la rendicontazione fava")
+    print(f"Mancante: {totale}")
 
 if __name__ == '__main__':
     scraper()
+    soldiRimanenti()
