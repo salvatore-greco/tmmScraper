@@ -197,6 +197,6 @@ def soldiRimanenti():
 
 if __name__ == '__main__':
     parsePdf()
-    #scraper()
-    #soldiRimanenti()
+    scraper()
+    soldiRimanenti()
 
