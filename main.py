@@ -107,11 +107,12 @@ def parsePdf():
     # The json exist, so i'm gonna process it as the parsePfi() wants it.
     with open('pfi_converted.json') as f:
         data = json.load(f)[0]['data'][1:]  # terribile ma mi serve solo il sottoarray data dal secondo elemento in poi
-
+    print(data)
     # riempio il dizionario expenses con i dati che mi interessano
     totalAmount = float(data[-1][1]['text'].lstrip('€ ').replace(',','.'))
     expenses = {}
-    data = data[1:-1]
+    data = data[:-1]
+
     for item in data:
         if item[0]['text'] in conversion_dictionary:
             category = conversion_dictionary.get(item[0]['text'])
@@ -197,6 +198,6 @@ def soldiRimanenti():
 
 if __name__ == '__main__':
     parsePdf()
-    scraper()
-    soldiRimanenti()
+    #scraper()
+    #soldiRimanenti()
 
