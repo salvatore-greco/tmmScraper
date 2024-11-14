@@ -22,8 +22,10 @@ def scraper():
     userInput = driver.find_element(By.ID, 'username-7')
     passwordInput = driver.find_element(By.ID, 'user_password-7')
     buttonSubmit = driver.find_element(By.ID, 'um-submit-btn')
+    rejectCookieButton = driver.find_element(By.CLASS_NAME, 'cky-btn-reject')
     userInput.send_keys(username)
     passwordInput.send_keys(password)
+    rejectCookieButton.click()
     buttonSubmit.click()
     try:
         WebDriverWait(driver, 10).until(
