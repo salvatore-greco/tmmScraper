@@ -6,6 +6,7 @@
 
 
 - ### The scraper must be written in Python 3.10.12, the libraries were managed with pip 23.2.1
+- ### In order to parse the pfi pdf you need to install java 8. 
   
 ## Scaffold
 
@@ -14,7 +15,7 @@
 ### 1. Be sure to use python 3.10.12 or major versions (with an appropriate pip version)
 ### 2. Install all the libraries in the requirements.txt file (if you use pip run `pip install -r requirements.txt`)
 ### 3. Rename the file '.env.dist' into '.env' and fill the variables with the correct values (please, keep the single quote as trailer and header of each variables entered)
-### 4. Rename the file 'pfi.json.dist' into 'pfi.json' and fill it with your pfi
+### 4. Put your pfi pdf file into the root folder of the project and rename it `pfi.pdf` (IMPORTANT! It won't work otherwise)
 ### 5. Run the command `python main.py` to start the scraper
 
 ## Output
